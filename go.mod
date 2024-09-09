@@ -7,6 +7,7 @@ require (
 	github.com/beevik/ntp v1.4.3
 	github.com/coreos/go-systemd/v22 v22.5.0
 	github.com/dennwc/btrfs v0.0.0-20240418142341-0167142bde7a
+	github.com/duke-git/lancet/v2 v2.3.2
 	github.com/ema/qdisc v1.0.0
 	github.com/go-kit/log v0.2.1
 	github.com/godbus/dbus/v5 v5.1.0
@@ -20,6 +21,7 @@ require (
 	github.com/mdlayher/ethtool v0.1.0
 	github.com/mdlayher/netlink v1.7.2
 	github.com/mdlayher/wifi v0.2.0
+	github.com/mindprince/gonvml v0.0.0-20211002210717-ac0b66419a41
 	github.com/opencontainers/selinux v1.11.0
 	github.com/prometheus-community/go-runit v0.1.0
 	github.com/prometheus/client_golang v1.19.1

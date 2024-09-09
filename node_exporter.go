@@ -14,7 +14,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/duke-git/lancet/v2/netutil"
 	stdlog "log"
 	"net/http"
 	_ "net/http/pprof"
@@ -165,6 +167,17 @@ func main() {
 			"web.disable-exporter-metrics",
 			"Exclude metrics about the exporter itself (promhttp_*, process_*, go_*).",
 		).Bool()
+
+		slurmMonitorServerAddress = kingpin.Flag(
+			"register.server-address",
+			"auto register to slurm-monitor-server",
+		).Default("master:8000").String()
+
+		slurmMonitorRegisterEnable = kingpin.Flag(
+			"register.enable",
+			"auto register to slurm-monitor-server",
+		).Bool()
+
 		maxRequests = kingpin.Flag(
 			"web.max-requests",
 			"Maximum number of parallel scrape requests. Use 0 to disable.",
@@ -218,9 +231,78 @@ func main() {
 		}
 		http.Handle("/", landingPage)
 	}
+	// 如果启用,注册到server中,由prometheus自动采集
+	if *slurmMonitorRegisterEnable {
 
+		type RegisterData struct {
+			Node   string   `json:"node"`
+			Labels []string `json:"labels"`
+			Cover  bool     `json:"cover"`
+		}
+
+		hostname, err := os.Hostname()
+		if err != nil {
+			level.Error(logger).Log("err", err)
+			os.Exit(1)
+		}
+		var registerData = RegisterData{
+			Node:   fmt.Sprintf("%s%s", hostname, (*toolkitFlags.WebListenAddresses)[0]),
+			Labels: []string{"node"},
+			Cover:  false,
+		}
+		marshal, err := json.Marshal(registerData)
+		if err != nil {
+			return
+		}
+		request := &netutil.HttpRequest{
+			RawURL: fmt.Sprintf("http://%s/api/prometheus/target/register", *slurmMonitorServerAddress),
+			Method: "POST",
+			Body:   marshal,
+		}
+		httpClient := netutil.NewHttpClient()
+		resp, err := httpClient.SendRequest(request)
+		if err != nil || resp.StatusCode != 200 {
+			level.Error(logger).Log("err", err, "doc", "register Fail")
+			os.Exit(1)
+		}
+	}
 	server := &http.Server{}
 	if err := web.ListenAndServe(server, toolkitFlags, logger); err != nil {
+		if *slurmMonitorRegisterEnable {
+			type RemoveData struct {
+				Node   string   `json:"node"`
+				Labels []string `json:"labels"`
+				Cover  bool     `json:"cover"`
+				Force  bool     `json:"force"`
+			}
+
+			hostname, err := os.Hostname()
+			if err != nil {
+				level.Error(logger).Log("err", err)
+				os.Exit(1)
+			}
+			var registerData = RemoveData{
+				Node:   fmt.Sprintf("%s%s", hostname, (*toolkitFlags.WebListenAddresses)[0]),
+				Labels: []string{"node"},
+				Cover:  false,
+				Force:  false,
+			}
+			marshal, err := json.Marshal(registerData)
+			if err != nil {
+				return
+			}
+			request := &netutil.HttpRequest{
+				RawURL: fmt.Sprintf("http://%s/api/prometheus/target/remove", *slurmMonitorServerAddress),
+				Method: "DELETE",
+				Body:   marshal,
+			}
+			httpClient := netutil.NewHttpClient()
+			resp, err := httpClient.SendRequest(request)
+			if err != nil || resp.StatusCode != 200 {
+				level.Error(logger).Log("err", err, "doc", "register Fail")
+				os.Exit(1)
+			}
+		}
 		level.Error(logger).Log("err", err)
 		os.Exit(1)
 	}

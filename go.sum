@@ -19,6 +19,8 @@ github.com/dennwc/btrfs v0.0.0-20240418142341-0167142bde7a h1:KfFsGLJFVdCXlySUkV
 github.com/dennwc/btrfs v0.0.0-20240418142341-0167142bde7a/go.mod h1:MYsOV9Dgsec3FFSOjywi0QK5r6TeBbdWxdrMGtiYXHA=
 github.com/dennwc/ioctl v1.0.0 h1:DsWAAjIxRqNcLn9x6mwfuf2pet3iB7aK90K4tF16rLg=
 github.com/dennwc/ioctl v1.0.0/go.mod h1:ellh2YB5ldny99SBU/VX7Nq0xiZbHphf1DrtHxxjMk0=
+github.com/duke-git/lancet/v2 v2.3.2 h1:Cv+uNkx5yGqDSvGc5Vu9eiiZobsPIf0Ng7NGy5hEdow=
+github.com/duke-git/lancet/v2 v2.3.2/go.mod h1:zGa2R4xswg6EG9I6WnyubDbFO/+A/RROxIbXcwryTsc=
 github.com/ema/qdisc v1.0.0 h1:EHLG08FVRbWLg8uRICa3xzC9Zm0m7HyMHfXobWFnXYg=
 github.com/ema/qdisc v1.0.0/go.mod h1:FhIc0fLYi7f+lK5maMsesDqwYojIOh3VfRs8EVd5YJQ=
 github.com/go-kit/log v0.2.1 h1:MRVx0/zhvdseW+Gza6N9rVzU/IVzaeE1SFI4raAhmBU=
@@ -61,6 +63,8 @@ github.com/mdlayher/socket v0.4.1 h1:eM9y2/jlbs1M615oshPQOHZzj6R6wMT7bX5NPiQvn2U
 github.com/mdlayher/socket v0.4.1/go.mod h1:cAqeGjoufqdxWkD7DkpyS+wcefOtmu5OQ8KuoJGIReA=
 github.com/mdlayher/wifi v0.2.0 h1:vwbVyu5MWTiFNvOmWdvIx9veBlMVnEasZ90PhUi1DYU=
 github.com/mdlayher/wifi v0.2.0/go.mod h1:yOfWhVZ4FFJxeHzAxDzt87Om9EkqqcCiY9Gi5gfSXwI=
+github.com/mindprince/gonvml v0.0.0-20211002210717-ac0b66419a41 h1:cnWB9LaE8IjT+2OboFc9e/EIkMWsvBRzQ6a4fsp3yOo=
+github.com/mindprince/gonvml v0.0.0-20211002210717-ac0b66419a41/go.mod h1:lfKj1eqOV2QHXQ/tSONI6xdSqgsBCZZZOTl31D6/3oQ=
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 h1:C3w9PqII01/Oq1c1nUAm88MOHcQC9l5mIlSMApZMrHA=
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822/go.mod h1:+n7T8mK8HuQTcFwEeznm/DIxMOiR9yIdICNftLE1DvQ=
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f h1:KUppIJq7/+SVif2QVs3tOP0zanoHgBEVAwHxUSIzRqU=
